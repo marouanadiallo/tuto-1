@@ -1,27 +1,42 @@
-# Tuto1
+# Angualr live formation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+## Session 1
 
-## Development server
+1. Setup
+    Télécharger et installer Node.js [Download Node.js®](https://nodejs.org/en/download/package-manager)
+    En suite installer le CLI d'Angular avec la commande suivante
+    > npm install -g @angular/cli
+2. Comprendre la notion de sémantique ?
+3. Prise en main du CLI d'Angular
+4. Présentation de la structure d'un projet angular
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Session 2
 
-## Code scaffolding
+1. Présenter la structre d'un projet Angular avant la feature standalone
+2. Comprendre la notion des décorateurs Angular
+3. le décorateur @Component({...})
+   > selector, template, templateUrl, style, styleUrls, styleUrl, host
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Session 3
 
-## Build
+1. La notion de Binding
+2. Les différents types de Binding en Angular
+    > interpolation de chaîne de caractères {{ }}
+    > One way binding [prop] = "..."
+    > (event)= "..."
+    > to-way Binding [(prop)] = "..."
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Composant parent et enfant
+    > Sens unidirectionnel => @Input(), input()
+    > Sens bidirectionnel => @Input(), @Output(), input(), output()
 
-## Running unit tests
+## Session 4
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. control flow :
+   > @if et NgIf, @for et ngFor, @switch et ngSwitch
+2. Les signaux
+   > singal()
+   > modification et mise à jour d'un signal
+   > créer un signal à partir d'un signal
+   > réaliser le traitement selon la modification ou maj d'un signal
+   > input(), output()
