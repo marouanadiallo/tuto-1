@@ -22,21 +22,26 @@
 1. La notion de Binding
 2. Les différents types de Binding en Angular
     > interpolation de chaîne de caractères {{ }}
-    > One way binding [prop] = "..."
+    > one way binding [prop] = "..."
     > (event)= "..."
     > to-way Binding [(prop)] = "..."
 
 3. Composant parent et enfant
-    > Sens unidirectionnel => @Input(), input()
-    > Sens bidirectionnel => @Input(), @Output(), input(), output()
+    > Sens unidirectionnel => @Input()
+    > Sens bidirectionnel => @Input(), @Output()
 
 ## Session 4
 
-1. control flow :
-   > @if et NgIf, @for et ngFor, @switch et ngSwitch
-2. Les signaux
-   > singal()
-   > modification et mise à jour d'un signal
-   > créer un signal à partir d'un signal
-   > réaliser le traitement selon la modification ou maj d'un signal
-   > input(), output()
+1. control flow : [lien vers la doc officielle](https://angular.dev/guide/templates/control-flow)
+   > @if et *ngIf
+   > @for ($count, $index, $first, $last, $even, $odd ), @Empty et ngFor
+   > @switch @case, @default et [ngSwitch]
+
+## Session 5
+
+1. Les signaux [Essentiel sur les signaux](https://angular.dev/essentials/signals), [Plus de détails](https://angular.dev/guide/signals)
+   > créer un => signal()
+   > modification et mise à jour d'un signal => monSignal.set() et monSignal.update((curr)=> ...)
+   > créer un signal à partir d'un signal => computed(()=>{})
+   > Effectuer un traitement selon la mise à jour d'un signal => effect(()=>{})
+   > input(), output(), viewChild(), viewChildren(), contentChild(), contentChildren()

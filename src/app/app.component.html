@@ -1,12 +1,81 @@
-<div class="tuto-container">
-    <div class="content">
-        @for (user of users; track $index) {
-            <tuto-show-user [userData]="user" (onDeleteUserEvent)="deleteUser($event)"></tuto-show-user>
-        }
-        <br>
-        <app-counter [(count)]="initialCount"></app-counter>
+<h1>Control flow</h1>
 
-        <p>Init count</p>
-        {{initialCount}}
+<button (click)="charger()">Charger utilisateur</button>
+
+<!-- Depuis Angular 17 -->
+<hr>
+
+@for (user of users; track user.name) {
+    <ng-container [ngSwitch]="user.gender">
+        <p *ngSwitchCase="'homme'">Monsier</p>
+        <p *ngSwitchCase="'femme'">Madame</p>
+        <p *ngSwitchCase="'autre'">Autre</p>
+        <p *ngSwitchDefault>Genre non précisé</p>
+    </ng-container>
+    <!-- @switch (user.gender) {
+        @case ('homme') {
+            <p>Monsieur</p>
+        }
+         @case ('femme') {
+            <p>Madame</p>
+         }
+         @case ('autre') {
+            <p>Autre</p>
+         }
+         @default {
+            <p>Genre non précisé</p>
+        }
+     } -->
+}
+
+<!-- @for (user of users; track user.name; let i = $index; let pre = $first; let last = $last; let even = $even; let odd = $odd) {
+   
+    <div>
+        <p>ID : {{user.id}}</p>
+        @if (even) {
+            <p style="font-weight: bold;">Nom : {{user.name}}</p>
+        }@else {
+            <p>Nom : {{user.name}}</p>
+        }
+        <p>Age: {{user.age}}</p>
     </div>
-</div>
+} @empty {
+    <p>Aucun utilisateur trouvé</p>
+} -->
+
+<!-- <ng-template ngFor let-item [ngForOf]="users" let-i="index"  let-pair="odd" let-impair="even" [ngForTrackBy]="trackByFn">
+    <div>
+        <p>ID : {{item.id}}</p>
+        <p *ngIf="impair" style="font-weight: bold;">Nom : {{item.name}}</p>
+        <p *ngIf="pair">Nom : {{item.name}}</p>
+        <p>Age: {{item.age}}</p>
+    </div>
+</ng-template> -->
+
+<!-- <ng-container *ngFor="let user of users; trackBy: trackByFn; index as i; first as pre; last as last; even as even; odd as odd">
+    <div>
+        <p>ID : {{user.id}}</p>
+        <p *ngIf="even" style="font-weight: bold;">Nom : {{user.name}}</p>
+        <p *ngIf="!even">Nom : {{user.name}}</p>
+        <p>Age: {{user.age}}</p>
+    </div>
+</ng-container> -->
+
+
+
+<!-- Avant Angular 17 -->
+ <!-- <ng-template [ngIf]="ob" [ngIfElse]="monElse">
+    <div>
+        <p>{{ ob[0].name }}</p>
+    </div>
+ </ng-template> -->
+ 
+<!-- <p *ngIf="ob as urs; else monElse" >
+    Name : {{ urs[0].name }}
+</p> -->
+
+<!-- <ng-template #monElse>
+    <p>Ancienne façon ngIf Else : Chargement d'utilisateur...</p>
+</ng-template> -->
+
+<!-- <p *ngIf="enabled; as ">Hello, ceci est l'ancienne façon de faire (NgIf)</p> -->
