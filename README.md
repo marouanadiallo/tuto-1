@@ -44,4 +44,14 @@
    > modification et mise à jour d'un signal => monSignal.set() et monSignal.update((curr)=> ...)
    > créer un signal à partir d'un signal => computed(()=>{})
    > Effectuer un traitement selon la mise à jour d'un signal => effect(()=>{})
-   > input(), output(), viewChild(), viewChildren(), contentChild(), contentChildren()
+
+
+## Session 6 : 
+
+1. Composant parent et enfant (Rappel @Input, @Output et nouvelle façon de faire avec l'api Signal)
+   > input(), output() [component communication](https://angular.dev/guide/components/inputs)
+   > les options
+2. DI (injection de dépendance) [DI Angular](https://angular.dev/guide/di/dependency-injection)
+    > le concepte
+    > Brièvement: provider, inject() sans les option
+2. Module Http [http client](https://angular.dev/guide/http)

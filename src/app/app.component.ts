@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, OnInit, Signal, signal, WritableSignal } from '@angular/core';
+
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 @Component({
@@ -13,27 +14,42 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
   ],
   templateUrl: './app.component.html',
   styleUrls:  ['./app.component.scss'], // styles: [], stylesUrl: './app.component.css'
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  enabled = true;
 
-  users: {id: number; name: string; age: number; gender: 'homme' | 'femme' | 'autre'}[]  = [];
+  private _userAge= signal(2008);
+  userName: WritableSignal<string> = signal('John Doe');
 
+  ageCalulated: Signal<number> = computed(() =>  2024 - this._userAge()); // le résultat sera mise en cache
+
+  userNameCapitalized: Signal<string> = computed(() => {
+    console.log('$_ComputedFunc : log from userNameCapitalized');
+    return this.userName().toUpperCase();
+  });
+
+  constructor() {
+    effect(() => {
+      console.log('$_Effect (change username) : ', this.userName());
+    });
+  }
 
   ngOnInit() {}
 
-  charger() {
-    this.users = [
-      {id: 1, name: 'John', age: 25, gender: 'homme'},
-      {id: 2, name: 'Jane', age: 24, gender: 'femme'},
-      {id: 3, name: 'Jim', age: 30, gender: 'autre'},
-    ];
-  }
-  deleteUser(id: number) {
-    this.users = this.users.filter(user => user.id !== id);
+  setUser(name: string) {
+    this.userName.set(name);
+    this._userAge.set(2000);
   }
 
-  trackByFn(index: number, item: any) {
-    return item.name;
+  capitalizeUserName() {
+    return this.userName().toUpperCase();
+  }
+
+  showBanner() {
+    if (this.ageCalulated() > 18) {
+      console.log('$_Signal : showBanner');
+    } else {
+      console.log('$_Signal : showBanner');
+    }
   }
 }
