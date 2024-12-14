@@ -1,18 +1,23 @@
 <div class="tuto-container">
     <div class="content">
-        <h1>Session 5 : Les signaux </h1>
-        <div>
-            <h4>Détail d'utilisateur</h4>
-            <p style="display: flex; align-items: center; gap: .5rem;">
-                <span>{{userName()}}</span>
-                <span>{{ageCalulated()}} ans </span>
-                <button (click)="setUser('John')">changer le nom et mettre en Maj</button>
-            </p>
+       <h2>Gestion des utilisateurs</h2>
+       @if (users$ | async; as users) {
+           @for (user of users; track user.email) {
+            <div class="user-item" (click)="showUserDetails(user)">
+                <span>{{user.name}}</span>
+                <span> Age: {{user.email}}</span>
+            </div>
+           }
+           <span class="separator"></span>
+           <!-- Affichage des détails de l'utilisateur -->
+            @if (userSelected) {
+                <div>
+                    <app-show-user [userData]="userSelected" [designUser]="true" (deleteUser)="deleteUserEvent($event)"></app-show-user>
+                </div>
+            }
+        } @else {
+            <div class="loading">Chargement des utilisateurs...</div>
+        }
 
-            <p>User name to Capitalized : {{userNameCapitalized()}}</p>
-        </div>
-
-        <span>une fois encore (Age) : {{ageCalulated()}}</span>
     </div>
-
 </div>

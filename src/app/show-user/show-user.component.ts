@@ -1,31 +1,54 @@
-import { Component, EventEmitter, input, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, output, } from "@angular/core";
+import { User } from "../core/model/models";
 
 @Component({
-    selector: "tuto-show-user",
+    selector: "app-show-user",
     standalone: true,
     imports: [],
     template: `
-        <div>
-            <h2>{{ user().name }}</h2>
-            <p>Age: {{ user().age }}</p>
-        </div>
-        <div>
-            <button (click)="deleteUser()">Delete user</button>
-        </div>
-    `
+       <div [class.design] = "designUser()">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2> User Details </h2>
+                <button (click)="deleteUser()">Supprimer</button>
+            </div>
+            <p> Name: {{ user().name }} </p>
+            <p> Age: {{ user().email }} </p>
+            <p> Phone: {{ user().phone }} </p>
+            <p> Address: {{ user().address }}
+       </div>
+    `,
+    styles:[
+        `
+            .design {
+                background-color: lightblue;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 10px;
+                h2 {
+                    font-weight: 500;
+                }
+                & p {
+                    margin: 5px;
+                }
+                button {
+                    background-color: red;
+                    color: white;
+                    padding: 5px;
+                    border: none;
+                    border-radius: 5px;
+                }
+            }
+        `	
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowUserComponent {
-   // @Input({ required: true, alias: "userData", transform: toUpperCase }) user: { id: number, name: string; age: number } | undefined; // input user data
-    @Output() onDeleteUserEvent = new EventEmitter<number>();// output event
-    user = input.required<{ id: number, name: string; age: number }>({alias: 'userData'}); // input user data
+  user = input.required<User, User>({ alias: "userData", transform: (data: User) => ({...data, name: data.name.toUpperCase()}) });
+  designUser = input(false);
 
-    deleteUser() {
-       // emit event
-        this.onDeleteUserEvent.emit(this.user()?.id);
-    }
+  onDeleteUser = output<string>({ alias: "deleteUser" });
 
-}
-// transform function
-function toUpperCase(value: { id: number, name: string; age: number }): { id: number, name: string; age: number } {
-    return { ...value, name: value.name.toUpperCase() };
+  deleteUser(): void {
+    this.onDeleteUser.emit(this.user().email);
+  }
 }

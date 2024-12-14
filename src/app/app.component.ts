@@ -1,55 +1,44 @@
-import { ChangeDetectionStrategy, Component, computed, effect, OnInit, Signal, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 
-import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { ShowUserComponent } from './show-user/show-user.component';
+
+import { User } from './core/model/models';
+import { AbstractUser } from './core/abstractions/abstracts';
+
+import { JsonPlaceholderUsersService } from './core/services/json-placeholder-users.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'tuto-root',
   standalone: true,
-  imports: [ 
-    NgIf,
-    NgFor,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault
+  imports: [ AsyncPipe, ShowUserComponent ],
+  providers:[
+    { provide: AbstractUser, useExisting: JsonPlaceholderUsersService }
   ],
   templateUrl: './app.component.html',
-  styleUrls:  ['./app.component.scss'], // styles: [], stylesUrl: './app.component.css'
+  styleUrls:  ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
+  
+  // Notre class AppComponent va dependre de la class UserDataService
+  //userDaaService: LocalUserService = new LocalUserService();
 
-  private _userAge= signal(2008);
-  userName: WritableSignal<string> = signal('John Doe');
+  userDataService = inject(AbstractUser);
 
-  ageCalulated: Signal<number> = computed(() =>  2024 - this._userAge()); // le résultat sera mise en cache
+  userSelected: User | null = null;
+  users$: Observable<User[]> = this.userDataService.getUsers();
 
-  userNameCapitalized: Signal<string> = computed(() => {
-    console.log('$_ComputedFunc : log from userNameCapitalized');
-    return this.userName().toUpperCase();
-  });
-
-  constructor() {
-    effect(() => {
-      console.log('$_Effect (change username) : ', this.userName());
-    });
+  ngOnInit(): void {
+      
   }
 
-  ngOnInit() {}
-
-  setUser(name: string) {
-    this.userName.set(name);
-    this._userAge.set(2000);
+  deleteUserEvent(email: string): void {
+    this.userSelected = null;
   }
 
-  capitalizeUserName() {
-    return this.userName().toUpperCase();
-  }
-
-  showBanner() {
-    if (this.ageCalulated() > 18) {
-      console.log('$_Signal : showBanner');
-    } else {
-      console.log('$_Signal : showBanner');
-    }
+  showUserDetails(user: User): void {
+    this.userSelected = user;
   }
 }

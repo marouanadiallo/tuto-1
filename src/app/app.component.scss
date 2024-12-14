@@ -11,3 +11,24 @@ h1 {
         margin: 0 auto;
     }
 }
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #ccc;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    border-radius: 8px;
+    &:hover {
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: all .3s;
+    }
+}
+
+.separator {
+    display: block;
+    height: 4px;
+    background-color: #336;
+    margin: .5rem 0;
+}
